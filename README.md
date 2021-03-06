@@ -16,6 +16,9 @@
  ## Usage
   In command prompt type
   > rasa init (to initialize)
+  
   > rasa run actions
+  
   > docker run -p 8000:8000 rasa/duckling
+  
   > rasa x (For chat UI) or rasa shell (opens in command prompt)
