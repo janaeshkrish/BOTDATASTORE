@@ -21,11 +21,11 @@ pipeline:
   - name: ResponseSelector
     epochs: 100
     constrain_similarities: true
-  # - name: DucklingHTTPExtractor
-  #   url: "http://localhost:8000"
-  #   dimensions: ['number','email']
-  #   timezone: "Asia/Kolkata"
-  #   timeout : 3
+  - name: DucklingEntityExtractor
+    url: "http://localhost:8000"
+    dimensions: ['number','email']
+    timezone: "Asia/Kolkata"
+    timeout : 3
 #   - name: FallbackClassifier
 #     threshold: 0.3
 #     ambiguity_threshold: 0.1

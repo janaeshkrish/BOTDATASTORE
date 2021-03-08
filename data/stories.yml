@@ -9,23 +9,23 @@ stories:
   - intent: mood_great
   - action: utter_happy
 
-- story: sad path 1
+- story: Store data to excel Sheet affrim
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+  - intent: add_data
+  - action: Form_Info
+  - active_loop: Form_Info
+  - active_loop: null
+  - action: Display_Data
   - intent: affirm
-  - action: utter_happy
+  - action: action_save_data
 
-- story: sad path 2
+- story: Store data to excel Sheet deny
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+  - intent: add_data
+  - action: Form_Info
+  - active_loop: Form_Info
+  - active_loop: null
+  - action: Display_Data
   - intent: deny
   - action: utter_goodbye
 
