@@ -13,7 +13,11 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormAction
-from . import excel
+#DB connections
+from data1 import DataUpdate,DataGet
+
+#Excel data store
+import excel
 
 class ActionSaveData(Action):
 
@@ -23,10 +27,15 @@ class ActionSaveData(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        excel.DataStore(tracker.get_slot("name"),
-            tracker.get_slot("number"),
-            tracker.get_slot("email"),
-            tracker.get_slot("occupation"))
+        # excel.DataStore(tracker.get_slot("name"),
+        #     tracker.get_slot("number"),
+        #     tracker.get_slot("email"),
+        #     tracker.get_slot("occupation"))
+        DataUpdate(tracker.get_slot("name"),
+        tracker.get_slot("number"),
+        tracker.get_slot("email"),
+        tracker.get_slot("occupation"))
+
         dispatcher.utter_message(text="Data Stored Successfully.")
 
         return []
@@ -39,8 +48,9 @@ class ActionFetchData(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        output=excel.FetchData(tracker.latest_message['entities'][0]['value'],
-                         tracker.latest_message['entities'][1]['value'])
+        # output=excel.FetchData(tracker.latest_message['entities'][0]['value'],
+        #                  tracker.latest_message['entities'][1]['value'])
+        output = DataGet(tracker.latest_message['entities'][0]['value'],tracker.latest_message['entities'][1]['value'])
         dispatcher.utter_message(text="This is the data that you asked for, \n{}".format(",".join(output)))
 
         return []
@@ -60,25 +70,6 @@ class FormDataCollect(FormAction):
             "email":[self.from_entity(entity="email")],
             "occupation":[self.from_text()]
         }
-
-    # def run(self, dispatcher: CollectingDispatcher,
-    #         tracker: Tracker,
-    #         domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-    #     dispatcher.utter_message(text="Here are the information that you provided. Do you want to save it?\nName: {0},\nMobile Number: {1},\nEmail: {2},\nOccupation: {3}".format(
-    #         tracker.get_slot("name"),
-    #         tracker.get_slot("number"),
-    #         tracker.get_slot("email"),
-    #         tracker.get_slot("occupation"),
-
-    #     ))
-
-        # dispatcher.utter_message(text="Do you want to save the data?")
-        # dispatcher.utter_message(buttons = [
-        #         {"payload": "/affirm", "title": "Yes"},
-        #         {"payload": "/deny", "title": "No"},
-        #     ])
-        #return []
 
 class DisplayData(Action):
 
