@@ -9,24 +9,33 @@ stories:
   - intent: mood_great
   - action: utter_happy
 
-- story: Store data to excel Sheet affrim
+- story: ASK details
   steps:
   - intent: add_data
   - action: Form_Info
   - active_loop: Form_Info
   - active_loop: null
   - action: Display_Data
+  - checkpoint : checkpoint_Display_Data
+
+- story: save data to DB
+  steps:
+  - checkpoint: checkpoint_Display_Data
   - intent: affirm
   - action: action_save_data
+  - checkpoint: check_flow_finished
 
-- story: Store data to excel Sheet deny
+- story: Donot store DATA to DB
   steps:
-  - intent: add_data
-  - action: Form_Info
-  - active_loop: Form_Info
-  - active_loop: null
-  - action: Display_Data
+  - checkpoint: checkpoint_Display_Data
   - intent: deny
+  - action: utter_goodbye
+  - checkpoint: check_flow_finished
+
+- story: finish flow
+  steps:
+  - checkpoint: check_flow_finished
+  - intent: goodbye
   - action: utter_goodbye
 
 - story : fetch information
@@ -36,3 +45,8 @@ stories:
       - column: 'name'
       - occup: 'trainer'
   - action: action_fetch_data
+
+- story: out of scope texts
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope

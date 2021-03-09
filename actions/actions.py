@@ -14,10 +14,10 @@ from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormAction
 #DB connections
-from data1 import DataUpdate,DataGet
+from . import data1
 
 #Excel data store
-import excel
+from . import excel
 
 class ActionSaveData(Action):
 
@@ -31,7 +31,7 @@ class ActionSaveData(Action):
         #     tracker.get_slot("number"),
         #     tracker.get_slot("email"),
         #     tracker.get_slot("occupation"))
-        DataUpdate(tracker.get_slot("name"),
+        data1.DataUpdate(tracker.get_slot("name"),
         tracker.get_slot("number"),
         tracker.get_slot("email"),
         tracker.get_slot("occupation"))
@@ -50,7 +50,7 @@ class ActionFetchData(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         # output=excel.FetchData(tracker.latest_message['entities'][0]['value'],
         #                  tracker.latest_message['entities'][1]['value'])
-        output = DataGet(tracker.latest_message['entities'][0]['value'],tracker.latest_message['entities'][1]['value'])
+        output = data1.DataGet(tracker.latest_message['entities'][0]['value'],tracker.latest_message['entities'][1]['value'])
         dispatcher.utter_message(text="This is the data that you asked for, \n{}".format(",".join(output)))
 
         return []

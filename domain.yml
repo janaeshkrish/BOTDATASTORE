@@ -21,6 +21,8 @@ intents:
     use_entities: true
 - add_data:
     use_entities: true
+- out_of_scope:
+    use_entities: true
 - ask_info:
     use_entities:
     - column
@@ -66,9 +68,13 @@ responses:
   - text: May I Know your occupation please
   utter_happy:
   - text: happy
+  utter_out_of_scope:
+  - text: Sorry i didn't get what you said. Please rephrase what you said.
+
 actions:
 - utter_greet
 - utter_goodbye
+- utter_out_of_scope
 - utter_ask_name
 - utter_ask_number
 - utter_ask_email

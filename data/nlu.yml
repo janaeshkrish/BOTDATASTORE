@@ -101,3 +101,9 @@ nlu:
 - synonym: number
   examples: |
     - mobile number
+
+- intent: out_of_scope
+  examples: |
+    - i want to order food
+    - what is 2+2?
+    - who is the indian president?

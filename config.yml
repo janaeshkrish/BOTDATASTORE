@@ -26,9 +26,9 @@ pipeline:
     dimensions: ['number','email']
     timezone: "Asia/Kolkata"
     timeout : 3
-#   - name: FallbackClassifier
-#     threshold: 0.3
-#     ambiguity_threshold: 0.1
+  - name: FallbackClassifier
+    threshold: 0.5
+    ambiguity_threshold: 0.1
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
